@@ -4,11 +4,11 @@
 return [
 
     'access' => [
-      'key' => '1b3b88789f773c07349b52538fd18728',
-      'secret' => 'SPwb7BaqmNkB',
+      'key' => 'ee7759de0838471f7b8b18c9835403d4',
+      'secret' => 'Mg04rH0VNrHp',
   ],
     'test_settings' => [
-        'start_balance' => 10000, // enter starting balance (integer in cents)
+        'start_balance' => 25000, // enter starting balance (integer in cents)
     ],
 
     /* Firewall is used within RestrictIpAddressMiddleware */
@@ -22,10 +22,11 @@ return [
         ],
       ],
 
-    'api_url' => 'https://01-dev-api.777.dog', /* api_url is the base url to contact, it should not end with slash */
+    'api_url' => 'https://02-gameserver.777.dog', /* api_url is the base url to contact, it should not end with slash */
     'endpoints' => [
-      'create_session' => '/api/createSession',
-	    'gameslist' => '/api/gameslist/all',
+      'create_session' => 'https://02-gameserver.777.dog/api/createSession',
+      'toggle_respin' => 'https://02-gameserver.777.dog/api/toggle_respin',
+      'gameslist' => 'https://02-gameserver.777.dog/api/gameslist/all',
     ],
 ];
 

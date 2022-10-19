@@ -80,7 +80,7 @@ class CasinoDogCallbackController
 
     public function game(Request $request)
     {
-        Log::notice(json_encode($request->all()));
+        //Log::notice(json_encode($request->all()));
         $player = new PlayerBalances;
 
         $this->verify_sign($request->sign, $request->salt_sign, $request);

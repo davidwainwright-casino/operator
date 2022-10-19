@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\URL;
 
 class CasinoDogOperatorApiServiceProvider extends PackageServiceProvider
 {
@@ -29,6 +30,8 @@ class CasinoDogOperatorApiServiceProvider extends PackageServiceProvider
             $this->app->bind('ProxyHelper', function($app) {
                 return new ProxyHelper();
             });
+
+                URL::forceScheme('https');
 
             Http::macro('dog', function ($dog_method = NULL) {
                 if($dog_method !== NULL) {

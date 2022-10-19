@@ -44,20 +44,43 @@ class OperatorGameslist extends Eloquent  {
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+    public static function link($slug){
+        return env('APP_URL').'/api/playground/viewer?game_id='.$slug;
+    }
 
+    public static function thumb($gid) {
+        $explode_game = explode('/', $gid);
+        if(isset($explode_game[1])) {
+            $img_url = 'https://wainwrighted.herokuapp.com/https://cdn.softswiss.net/i/s3/'.$gid.'.png';
+
+        } else {
+            $img_url = 'https://wainwrighted.herokuapp.com/https://parimatch.co.tz/service-discovery/service/pm-casino/img/tr:n-slots_game_image_desktop/Casino/eva/games/'.$gid.'.png';
+        }
+        return  $img_url;
+    }
     public static function providers(){
-        $query = OperatorGameslist::distinct()->get('provider');
-
+        $kernel = new OperatorGameslist;
+        $query = $kernel->distinct()->get('provider');
         foreach($query as $provider) {
+            if($provider->provider === "pragmaticplay") {
+                $image_tag = 'pragmatic';
+            } elseif($provider->provider === 'nolimitcity') {
+                $image_tag = 'nolimit';
+            } else {
+                $image_tag = $provider->provider;
+            }
             $provider_array[] = array(
                 'id' => $provider->provider,
                 'slug' => $provider->provider,
                 'provider' => $provider->provider,
+                'image_tag' => $image_tag,
                 'name' => ucfirst($provider->provider),
+                'game_count' => $kernel->where('provider', $provider->provider)->count(),
                 'methods' => 'demoModding',
             );
         }
         return $provider_array;
     }
+
 }
 

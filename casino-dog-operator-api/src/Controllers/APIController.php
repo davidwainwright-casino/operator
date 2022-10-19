@@ -565,7 +565,7 @@ public function game_info($slug)
    {
          $start = microtime(true);
 
-        $cache_length = 0;
+        $cache_length = 60;
         $limit = 20;
         if($request->limit) {
             if(is_numeric($request->limit)) {
@@ -641,6 +641,8 @@ public function game_info($slug)
 
         if($layout === 'wainwright_casino') {
             $games = $this->gameslist_wainwright($games);
+            $result = collect($games)->paginate($limit);
+            return $result;
         }
 
         if($layout === 'management') {
